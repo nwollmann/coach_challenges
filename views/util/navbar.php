@@ -1,21 +1,20 @@
 <?php 
-	error_reporting(0);
+	//error_reporting(0);
 	$current = $_SERVER['PHP_SELF']; 
 	$includeBase = $_SERVER['DOCUMENT_ROOT'];
-	include_once($includeBase.'/model/pdoUtility.php');
 
 	if($current == '/index.php') $page = 0;
 	else if($current == '/classmenu.php') $page = 1;
 	else if($current == '/learningprofile.php') $page = 2;
 	else if($current == '/lesson.php') $page = 3;
+	else $page = -1;
 ?>
 
+
 <script type="text/javascript" src="/scripts/loginValidation.js"></script>
+<script type="text/javascript" src="/scripts/post.js"></script>
 
-<!--  THIS IS TEST CODE DELETE WHEN DONE  -->
-<script type="text/javascript">
-
-</script>
+<?php $xajax->printJavascript(); ?>
 
 <div class="navbar navbar-default">
 	<div class="navbar-header">
@@ -66,7 +65,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="xajax_login(document.getElementById('usernamelogin').value, document.getElementById('passwordlogin').value)">Login</button>
+				<!--<button type="button" class="btn btn-primary" onclick="xajax_login(document.getElementById('usernamelogin').value, document.getElementById('passwordlogin').value)">Login</button> -->
+				<button type="button" class="btn btn-primary" onclick="post('/requests/loginRequest.php', {username: document.getElementById('usernamelogin').value, password: document.getElementById('passwordlogin').value})">Login</button>
 			</div>
 		</div>
 	</div>
@@ -118,21 +118,14 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-				<h4 class="modal-title">Register</h4>
+				<h4 class="modal-title">Registration Unavailable</h4>
 			</div>
 			<div class="modal-body">
 				<p>
-					Registration for this website is controlled by the coaches. Speak to one of us and we will
-					assist you with the process. 
+					Account registration for this website is restricted. If you require an account for this website, please contact
+					the coach for your class.
 				</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-validate();
-</script>

@@ -1,9 +1,9 @@
-function validate(){
+/*function validate(){
 	var valid = true;
 
 	//check username
-	var value = document.getElementById("username").value;
-	var group = document.getElementById("usernameGroup");
+	/*var value = document.getElementById("username").value;
+	//var group = document.getElementById("usernameGroup");
 	if(value.match(/[^\w\-]/) || value.length == 0){ 
 	 	group.className = "form-group has-error";
 	 	valid = false;
@@ -54,5 +54,5 @@ function validate(){
 	if(valid){
 		document.getElementById('registerButton').className = 'btn btn-primary';
 	}else
-		document.getElementById('registerButton').className = 'btn btn-primary disabled';
-}
+		document.getElementById('registerButton').className = 'btn btn-primary disabled';*/
+//}

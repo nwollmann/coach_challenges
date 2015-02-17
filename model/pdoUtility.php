@@ -4,7 +4,7 @@
 	interface DBConnector{
 		const HOST = 'localhost';
 		const DATABASE = 'coach_challenges';
-		const USERNAME = 'coachChallenges';
+		const USERNAME = 'ChallengeData';
 		const PASSWORD = '479zXScPR9LbEHAU';
 	}
 
@@ -30,31 +30,35 @@
 			$DBH = null;
 		}
 
+		public static function rowFromToken($token){
+			$DBH = self::connect();
+			$STH = $DBH->prepare("SELECT * FROM users WHERE registrationToken = :token");
+			$STH->bindParam(":token", $token);
+			$STH->execute();
+			while($row = $STH->fetch()){
+				return $row;
+			}
+			return null;
+		}
+
 		public static function login($username, $password){
-			echo "Starting to login";
 			$DBH = self::connect();
 			$STH = $DBH->prepare("Select * FROM users WHERE username = :username");
 			$STH->bindParam(":username", $username);
 			$STH->execute();
 			while($row = $STH->fetch()){
-				$salted = md5(md5($password).$row['salt']);
-				if($salted == $row['password'] ){
+				/*if(md5(md5($password).$row['salt']) == $row['password'] ){
+					$_SESSION['userid'] = $row['userid'];
+					return true;
+				}*/
+				if(password_verify($password, $row['password'])){
 					$_SESSION['userid'] = $row['userid'];
 					return true;
 				}
+
 				return false;
 			}
 			return false;
-		}
-
-		public static function isAdmin(){
-			$DBH = self::connect();
-			$STH = $DBH->prepare("Select * FROM users WHERE userid = $_SESSION['userid']");
-			$STH->execute();
-			while($row = $STH->fetch()){
-				return $row['is_admin'];
-			}
-			return 0;
 		}
 
 		//Outdated bit of code which might be useful again at some point in the future
@@ -169,4 +173,6 @@
 			}
 		}*/
 	}
+	
+	//login("test", "test");
 ?>

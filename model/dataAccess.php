@@ -28,24 +28,27 @@
 */
 
 //sql information
-	$username = 'ChemData';
-	$pass = '479zXScPR9LbEHAU';
-	$host = 'localhost';
-	$database = 'virtualchemclass'; 
-
-	//include_once("/xajax_core/xajax.inc.php");
+	
+	$includebase = $_SERVER['DOCUMENT_ROOT'];
+	require_once($includebase."/xajax_core/xajax.inc.php");
+	//include_once($includebase."/xajax_core/xajaxResponse.inc.php");
 	//require_once('../xajax_core/xajax.inc.php');
+	//require_once("/xajax_core/xajax.inc.php");
+	//require_once("/xajax_core/xajaxResponse.inc.php");
 	require_once("pdoUtility.php");
 
 	$xajax = new xajax();
 	//$xajax->register(XAJAX_FUNCTION, "addBook");
 	//$xajax->registerFunction("addBook");
-	$xajax->registerFunction("login");
-	$xajax->registerFunction("addUser");
-	$xajax->registerFunction("logout");
-	$xajax->registerFunction("setLesson");
+	$xajax->register(XAJAX_FUNCTION, "login");
+	//$xajax->registerFunction("addUser");
+	$xajax->register(XAJAX_FUNCTION, "logout");
+	//$xajax->registerFunction("setLesson");
 
+	$xajax->processRequest();
+	//$xajax->printJavascript();
 
+	/*
 	function setLesson($value){
 		$_SESSION['lessonid'] = $value;
 	}
@@ -73,7 +76,7 @@
 		$response = new xajaxResponse();
 		return $response;
 	}
-
+*/
 	function logout(){
 		$response = new xajaxResponse();
 		//if(session_status() == PHP_SESSION_NONE) session_start();
@@ -83,21 +86,21 @@
 		//$response->alert("called");
 		return $response;
 	}
-
+/*
 	function addUser($username, $password, $name, $email)
 	{
 		$response = new xajaxResponse();
-		if(UserAccess::userExists($username)){
-			$response->assign('registerStatus', 'innerHTML', 'That username has already been taken.');
-			return $response;
-		}
+		//if(UserAccess::userExists($username)){
+		//	$response->assign('registerStatus', 'innerHTML', 'That username has already been taken.');
+		//	return $response;
+		//}
 		$data = array('username' => $username, 'password' => $password, 'name' => $name, 'email' => $email);
 		UserAccess::addUser($username, $password, $email, $name);
 		UserAccess::login($username, $password);
 		$response->script("$('#register').modal('hide');");
 		$response->redirect('index.php');
 		return $response;
-	}
+	} */
 
 	function login($username, $password)
 	{
@@ -105,37 +108,19 @@
 		//if(session_status() == PHP_SESSION_NONE)
 		//	session_start();
 
-		if(UserAccess::login($username, $password) == 1){
+		/*if(UserAccess::login($username, $password)){
 			$response->redirect('?');
 		}else{
-			//$response->alert("Incorrect Username or Password");
+			$response->alert("Incorrect Username or Password");
 			$response->assign('loginResponse', 'innerHTML', 'Incorrect username or password.');
-		}
+		}*/
+
+		$response->alert("hello");
 		return $response;
 	} 
 
-
-	//functions which are going to be called for a lesson 
-	function generateQuestion()
-	{
-
-	}
-
-	function answer()
-	{
-
-	}
-
-	function explanation()
-	{
-		
-	}
-
-
-
-
-
-
-	$xajax->processRequest();
+	
 	//print(UserAccess::userExists("invalid"));
+
+	//login("nwollmann", "password");
 ?>
