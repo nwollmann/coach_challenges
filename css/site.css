@@ -1,0 +1,23 @@
+.equal, .equal > div[class*='col-'] {  
+    display: -webkit-flex;
+    display: flex;
+    flex:1 1 auto;
+}
+
+.bottomLeft {
+	width: 43%;
+	position:absolute;
+	bottom: 10%;
+	left: 5%;
+}
+
+.bottomRight{
+	width: 43%;
+	position: absolute;
+	bottom:10%;
+	right: 5%;
+}
+
+body .modal{
+	width: 900px;
+}
